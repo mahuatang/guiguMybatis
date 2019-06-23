@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.test.dao.EmployeeMapper">
+
+    <resultMap id="employee" type="com.atguigu.test.bean.Employee">
+        <result column="id" property="id"  />
+        <result column="last_name" property="lastName" />
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+    </resultMap>
+
+    <select id="getEmpByLastNameLikeReturnMap" resultType="com.atguigu.test.bean.Employee">
+        select * from tbl_employee where last_name like #{lastName}
+    </select>
+
+    <select id="getEmpByIdReturnMap" resultType="com.atguigu.test.bean.Employee">
+        SELECT * from tbl_employee where id = #{id}
+    </select>
+
+    <select id="getEmpsByLastNameLike" resultType="com.atguigu.test.bean.Employee">
+        SELECT * from tbl_employee where last_name like #{lastName}
+    </select>
+
+    <select id="getEmpByMap" resultType="com.atguigu.test.bean.Employee">
+        select * from ${tableName} where id=${id} and last_name=#{lastName}
+    </select>
+
+    <select id="getEmpByIdAndLastName" resultType="com.atguigu.test.bean.Employee">
+        select * from tbl_employee where id = #{id} and last_name=#{lastName}
+    </select>
+
+    <select id="getEmpById" resultMap="employee">
+        select id,last_name lastName,email,gender from tbl_employee where id = #{id}
+    </select>
+
+    <select id="getEmpById" resultMap="employee" databaseId="mysql">
+        select * from tbl_employee where id = #{id}
+    </select>
+
+    <select id="getEmpById" resultMap="employee" databaseId="oracle">
+        select EMPLOYEE_ID id,LAST_NAME	lastName,EMAIL email from employees where EMPLOYEE_ID=#{id}
+    </select>
+
+    <insert id="addEmp" parameterType="com.atguigu.test.bean.Employee" useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
+        insert into tbl_employee(last_name,email,gender) values(#{lastName},#{email},#{gender})
+    </insert>
+
+    <update id="updateEmp">
+        update tbl_employee
+		set last_name=#{lastName},email=#{email},gender=#{gender}
+		where id=#{id}
+    </update>
+
+    <delete id="deleteEmpById">
+        delete from tbl_employee where id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.test.dao.EmployeeMapperPlus">
+
+    <resultMap id="employee" type="com.atguigu.test.bean.Employee">
+        <result column="id" property="id"  />
+        <result column="last_name" property="lastName" />
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+    </resultMap>
+
+    <select id="getEmpById"  resultMap="employee">
+        select * from tbl_employee where id=#{id}
+    </select>
+
+    <resultMap id="MyDifEmp" type="com.atguigu.test.bean.Employee">
+        <id column="id" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="gender" property="gender"></result>
+        <result column="email" property="email"></result>
+        <result column="dept_name" property="dept.departmentName"></result>
+        <result column="did" property="dept.id"></result>
+    </resultMap>
+
+    <resultMap id="MyDifEmp2" type="com.atguigu.test.bean.Employee">
+        <id column="id" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="gender" property="gender"></result>
+        <result column="email" property="email"></result>
+        <association property="dept" javaType="com.atguigu.test.bean.Department">
+            <id column="did" property="id"></id>
+            <result column="dept_name" property="departmentName"></result>
+        </association>
+    </resultMap>
+
+    <select id="getEmpAndDept" resultMap="MyDifEmp2">
+        SELECT e.id id,e.last_name last_name,e.gender gender,e.d_id d_id,
+		d.id did,d.dept_name dept_name FROM tbl_employee e,tbl_dept d
+		WHERE e.d_id=d.id AND e.id=#{id}
+    </select>
+
+    <resultMap type="com.atguigu.test.bean.Employee" id="MyEmpByStep">
+        <id column="id" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="email" property="email"></result>
+        <result column="gender" property="gender"></result>
+        <association property="dept" select="com.atguigu.test.dao.DepartmentMapper.getDeptById" column="d_id">
+        </association>
+    </resultMap>
+
+    <select id="getEmpByIdStep" resultMap="MyEmpByStep">
+        SELECT * from tbl_employee where id=#{id}
+        <if test="_parameter != null">
+            and 1 = 1
+        </if>
+    </select>
+
+    <select id="getEmpsByDeptId" resultType="com.atguigu.test.bean.Employee">
+        select * from tbl_employee where d_id=#{deptId}
+    </select>
+
+
+
+</mapper>

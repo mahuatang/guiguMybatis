@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MyBatsiGuiGu.iml" filepath="$PROJECT_DIR$/.idea/modules/MyBatsiGuiGu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MyBatsiGuiGu_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MyBatsiGuiGu_main.iml" group="MyBatsiGuiGu" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MyBatsiGuiGu_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MyBatsiGuiGu_test.iml" group="MyBatsiGuiGu" />
+    </modules>
+  </component>
+</project>

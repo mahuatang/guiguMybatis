@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <properties resource="dbconfig.properties"></properties>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+
+
+    <typeAliases>
+        <package name="com.atguigu.mybatis.bean"/>
+
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.atguigu.test.dao.MyFirstPlugin">
+            <property name="username" value="root"/>
+            <property name="password" value="123456"/>
+        </plugin>
+        <plugin interceptor="com.atguigu.test.dao.MySecondPlugin">
+            <property name="usb2.0" value="wuhan"/>
+            <property name="usb1.0" value="hangzhou"/>
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"></property>
+                <property name="url" value="${jdbc.url}"></property>
+                <property name="username" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
+            </dataSource>
+        </environment>
+
+        <environment id="dev_oracle">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${orcl.driver}" />
+                <property name="url" value="${orcl.url}" />
+                <property name="username" value="${orcl.username}" />
+                <property name="password" value="${orcl.password}" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+        <property name="SQL Server" value="sqlserver"/>
+    </databaseIdProvider>
+
+    <mappers>
+
+        <mapper resource="EmployeeMapper.xml"></mapper>
+        <mapper resource="EmployeeMapperPlus.xml"></mapper>
+        <mapper resource="DepartmentMapper.xml"></mapper>
+        <mapper resource="EmployeeMapperDynamicSQL.xml"></mapper>
+        <mapper class="com.atguigu.test.dao.EmployeeMapperAnnotation"/>
+        <!--
+        <package name="com.atguigu.test.dao"/>-->
+    </mappers>
+
+</configuration>
